@@ -1,8 +1,8 @@
 <?php
 
-namespace App\App;
+namespace App\Services;
 
-class FileReader
+class FileReaderService
 {
     private string $filePath;
 

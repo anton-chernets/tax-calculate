@@ -1,17 +1,17 @@
 <?php
 
-use App\App\FileReader;
+use App\Services\FileReaderService;
 use PHPUnit\Framework\TestCase;
 
-class FileReaderTest extends TestCase
+class FileReaderServiceTest extends TestCase
 {
-    private FileReader $fileProcessor;
+    private FileReaderService $fileProcessor;
     private string $testFile = 'test.txt';
 
     protected function setUp(): void
     {
         file_put_contents($this->testFile, "Line 1\nLine 2\nLine 3\n");
-        $this->fileProcessor = new FileReader($this->testFile);
+        $this->fileProcessor = new FileReaderService($this->testFile);
     }
 
     protected function tearDown(): void

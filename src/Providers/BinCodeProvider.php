@@ -15,16 +15,9 @@ class BinCodeProvider extends BaseProvider implements ProviderInterface
     public function getData(TransactionDto $transaction): array
     {
         $url = $_ENV['BIN_API_URL'];
-        $apiKey = $_ENV['BIN_API_KEY'];
-
-        $requestBody = $apiKey ? [
-            'query' => [
-                'access_key' => $_ENV['EXCHANGE_RATES_API_KEY']
-            ]
-        ] : [];
 
         try {
-            return $this->getBodyResponse($url, $requestBody, $transaction->bin);
+            return $this->getBodyResponse($url, $this->getBodyRequest(), $transaction->bin);
         } catch (GuzzleException $e) {
             $this->logger->error($url, [$e->getMessage()]);
             throw new BinCodeException($e->getMessage());
@@ -43,5 +36,10 @@ class BinCodeProvider extends BaseProvider implements ProviderInterface
     public static function getErrorMessage(): string
     {
         return 'api country code response error!';
+    }
+
+    public static function getApiKey(): string
+    {
+        return $_ENV['BIN_API_KEY'];
     }
 }

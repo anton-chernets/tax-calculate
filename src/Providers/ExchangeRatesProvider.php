@@ -28,15 +28,8 @@ class ExchangeRatesProvider extends BaseProvider implements ProviderInterface
     public function getData(): array
     {
         $url = $_ENV['EXCHANGE_RATES_API_URL'];
-        $apiKey = $_ENV['EXCHANGE_RATES_API_KEY'];
 
-        $requestBody = $apiKey ? [
-            'query' => [
-                'access_key' => $_ENV['EXCHANGE_RATES_API_KEY']
-            ]
-        ] : [];
-
-        return $this->getBodyResponse($url, $requestBody);
+        return $this->getBodyResponse($url, $this->getBodyRequest());
     }
 
     /**
@@ -51,5 +44,10 @@ class ExchangeRatesProvider extends BaseProvider implements ProviderInterface
     public static function getErrorMessage(): string
     {
         return 'api exchange rate response error!';
+    }
+
+    public static function getApiKey(): string
+    {
+        return $_ENV['EXCHANGE_RATES_API_KEY'];
     }
 }

@@ -42,4 +42,15 @@ class BaseProvider
             throw static::getProviderException($errorMessage);
         }
     }
+
+    public function getBodyRequest(): array
+    {
+        $apiKey = static::getApiKey();
+
+        return $apiKey ? [
+            'query' => [
+                'access_key' => $apiKey
+            ]
+        ] : [];
+    }
 }
